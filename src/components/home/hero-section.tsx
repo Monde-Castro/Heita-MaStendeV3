@@ -1,7 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export function HeroSection() {
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      navigate(`/listings?search=${encodeURIComponent(searchQuery)}`);
+    }
+  };
   return (
     <div className="relative isolate px-6 pt-14 lg:px-8">
       <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
@@ -15,8 +25,14 @@ export function HeroSection() {
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <div className="flex w-full max-w-sm items-center space-x-2">
-              <Input type="text" placeholder="Search locations..." />
-              <Button type="submit">Search</Button>
+              <Input
+                type="text"
+                placeholder="Search locations..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+              />
+              <Button onClick={handleSearch}>Search</Button>
             </div>
           </div>
         </div>

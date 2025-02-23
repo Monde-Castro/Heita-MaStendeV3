@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { ListingsGrid } from "./listings-grid";
 import { Filters } from "./filters";
 import { ListingFilters } from "@/types";
 import { useListings } from "@/lib/queries";
 
 export default function ListingsPage() {
+  const [searchParams] = useSearchParams();
   const [filters, setFilters] = useState<ListingFilters>({});
+
+  useEffect(() => {
+    const searchQuery = searchParams.get("search");
+    if (searchQuery) {
+      setFilters((prev) => ({ ...prev, location: searchQuery }));
+    }
+  }, [searchParams]);
   const { data: listings, isLoading } = useListings(filters);
 
   return (

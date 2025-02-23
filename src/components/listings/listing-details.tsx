@@ -86,8 +86,10 @@ export function ListingDetails({ listing, isLoading }: ListingDetailsProps) {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Verified</p>
-                <p className="font-medium">
-                  {listing.isVerified ? "Yes" : "No"}
+                <p
+                  className={`font-medium ${listing.verified ? "text-green-600" : "text-red-600"}`}
+                >
+                  {listing.verified ? "Verified" : "Not Verified"}
                 </p>
               </div>
             </div>
@@ -112,22 +114,122 @@ export function ListingDetails({ listing, isLoading }: ListingDetailsProps) {
             </div>
           </div>
 
-          <Card>
-            <CardContent className="p-4">
-              <Button
-                className="w-full"
-                size="lg"
-                onClick={() => setContactDialogOpen(true)}
-              >
-                Contact Landlord
-              </Button>
-            </CardContent>
-          </Card>
+          <div className="space-y-4">
+            <Card>
+              <CardContent className="p-4">
+                <Button
+                  className="w-full"
+                  size="lg"
+                  onClick={() => setContactDialogOpen(true)}
+                >
+                  Contact Landlord
+                </Button>
+              </CardContent>
+            </Card>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              {/* Verified Support Card */}
+              <Card>
+                <CardContent className="p-6 space-y-4">
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-bold">
+                      Verified Support: Agent
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      Perfect for those looking for a secure and supported
+                      housing experience.
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <p className="text-2xl font-bold">R899.00</p>
+                    <ul className="space-y-2 text-sm">
+                      <li className="flex items-center gap-2">
+                        <Shield className="h-4 w-4" /> Verified listings for
+                        peace of mind
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Home className="h-4 w-4" /> Support from our Agent
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Shield className="h-4 w-4" /> Safety checks on all
+                        properties
+                      </li>
+                    </ul>
+                  </div>
+
+                  <Button
+                    className="w-full"
+                    variant="outline"
+                    onClick={() =>
+                      window.open(
+                        `https://wa.me/27658156319?text=Hi, I'm interested in the Verified Support: Agent package for ${listing.title}`,
+                        "_blank",
+                      )
+                    }
+                  >
+                    Contact on WhatsApp
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Premium Concierge Card */}
+              <Card>
+                <CardContent className="p-6 space-y-4">
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-bold">
+                      Premium Concierge: Agent + Transportation
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      Perfect for those who want a hands-on, tailored approach
+                      to finding their ideal accommodation.
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <p className="text-2xl font-bold">Inquiry-Based Pricing</p>
+                    <ul className="space-y-2 text-sm">
+                      <li className="flex items-center gap-2">
+                        <Shield className="h-4 w-4" /> Verified listings for
+                        peace of mind
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Car className="h-4 w-4" /> Transportation from our team
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Home className="h-4 w-4" /> Dedicated support from our
+                        agents
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Shield className="h-4 w-4" /> Safety checks on all
+                        properties
+                      </li>
+                    </ul>
+                  </div>
+
+                  <Button
+                    className="w-full"
+                    variant="outline"
+                    onClick={() =>
+                      window.open(
+                        `https://wa.me/27658156319?text=Hi, I'm interested in the Premium Concierge: Agent + Transportation service for ${listing.title}`,
+                        "_blank",
+                      )
+                    }
+                  >
+                    Contact on WhatsApp
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
 
           <ContactLandlordDialog
             open={contactDialogOpen}
             onOpenChange={setContactDialogOpen}
             listingTitle={listing.title}
+            landlordName={listing.landlord_name}
+            landlordPhone={listing.landlord_phone}
           />
         </div>
       </div>

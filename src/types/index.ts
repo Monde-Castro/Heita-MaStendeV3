@@ -10,7 +10,7 @@ export interface Listing {
   landlordId: string;
   createdAt: Date;
   updatedAt: Date;
-  isVerified: boolean;
+  verified: boolean;
 }
 
 export interface User {
